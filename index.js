@@ -1,14 +1,18 @@
 import express from "express" // new js
-
-const express = require("express") // old js
-
+import cors from "cors"
+import studentRoutes from "./routes/students.js"
 
 const app = express()
 const port = 3000
+app.use(cors())
+app.use(express.json())
+
 
 app.get("/", (req, res) => {
-	res.json({ msg: "Hello World!" })
+res.json({ msg: "Hello World"})
 })
+
+app.use(studentRoutes)
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`)
