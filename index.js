@@ -1,5 +1,5 @@
 import dotenv from "dotenv"
-import express from "express" // new js
+import express from "express" 
 import cors from "cors"
 import studentRoutes from "./routes/students.js"
 import mongoose from 'mongoose'
