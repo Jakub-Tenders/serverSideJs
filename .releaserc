@@ -1,10 +1,6 @@
 {
-    "branches": [
-    "+([0-9])?(.{+([0-9]),x}).x",
-    "main",
-    "next",
-    "02"
-    ],
+    "branches": ["02"],
+    "repositoryUrl": "https://github.com/Jakub-Tenders/serverSideJs.git",
     "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
