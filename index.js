@@ -1,6 +1,18 @@
+import dotenv from "dotenv"
 import express from "express" // new js
 import cors from "cors"
 import studentRoutes from "./routes/students.js"
+import mongoose from 'mongoose'
+
+dotenv.config()
+
+try {
+	await mongoose.connect(process.env.MONGO_URI);
+	console.log("Connected to MongoDB");
+} catch (err) {
+	console.error(err);
+	process.exit(1); 
+}
 
 const app = express()
 const port = 3000
