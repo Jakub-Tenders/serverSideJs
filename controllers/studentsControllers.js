@@ -1,30 +1,87 @@
-import { getAllStudents, getStudentById, createStudent, updateStudent, deleteStudent } from "../services/studentsServices.js"
+import jwt from "jsonwebtoken";
+import { 
+  getAllStudents, 
+  getStudentById, 
+  createStudent, 
+  updateStudent, 
+  deleteStudent 
+} from "../services/studentsServices.js"
+import student from "../models/student.js";
 
 export const getStudents = async (req, res) => {
-  const students = await getAllStudents()
-  res.status(200).json(students);
+  try {
+    const students = await getALLStudents();
+    const toStudentDTO = (student) => ({
+      id: student._id,
+      email: student.email,
+      major: student.major,
+      gpa: student.gpa,
+    });
+    const studentDTO = map(toStudentDTO);
+    res.status(200).json(students);
+  } catch (error) {
+    res.status(404).json({message: error.message})
+  }
+  
 };
 
 export const getStudentByIdController = async (req, res) => {
-  const student = await getStudentById(parseInt(req.params.id));
-  res.status(200).json(student);
+  const id = req.params.id;
+  try {
+    const student = await getStudentById(id);
+    console.log(student);
+    res.status(200).json(student);
+  } catch (error) {
+    res.status(404).json({message: "Student does not exist"});
+    return;
+  }
 };
 
 export const createStudentController = async (req, res) => {
   try {
-    const student = await createStudent(req.body)
-    res.status(201).json(student)
+    const {name, email, password, gpa, major} = req.body;
+    const newStudent = {name, email, password, gpa, major};
+    const User = await createStudent(newStudent);
+    const token = jwt.sign({id:User._id}, process.env.JWT_SECRET, {
+      expiresIn : "1h",
+    });
+    const toStudentDTO = (student) => ({
+      id: student._id,
+      email: student.email,
+    });
+    res.status(201).json({token, user: toStudentDTO(User)});
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
 };
 
 export const updateStudentController = async (req, res) => {
-  const student = await updateStudent(parseInt(req.params.id), req.body);
-  res.status(200).json(student);
+  try {
+  const udated = await updateStudent(parseInt(req.params.id), req.body);
+  res.status(200).json(udated);
+  } catch (error) {
+    res.status(500).json({ message: error.message});
+  }
 };
 
 export const deleteStudentController = async (req, res) => {
+  try {
   const student = await deleteStudent(parseInt(req.params.id));
-  res.status(200).json(student);
+  res.status(200).json({message: "student deleted succesfully"});
+  } catch (error) {
+    res.status(500).json({message: error.message})
+  }
 };
+
+export const loginStudentController = async (req, res) => {
+  try {
+    const {email, password} = req.body;
+    const user = await loginStudent(email, password);
+    const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+    res.status(200).json({token, user: {id: user._id, email: user.email}});
+  } catch (error) {
+    res.status(401).json({ message: error.message});
+  }
+}
