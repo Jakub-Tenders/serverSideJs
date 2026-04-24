@@ -2,8 +2,15 @@
     "branches": ["02"],
     "repositoryUrl": "https://github.com/Jakub-Tenders/serverSideJs.git",
     "plugins": [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
-    "@semantic-release/github"
+        ["@semantic-release/commit-analyzer", {
+            "preset": "angular",
+            "releaseRules": [
+                {"breaking": true, "release": "major"},
+                {"type": "feat", "release": "minor"},
+                {"type": "fix", "release": "patch"}
+            ]
+        }],
+        "@semantic-release/release-notes-generator",
+        "@semantic-release/github"
     ]
 }
