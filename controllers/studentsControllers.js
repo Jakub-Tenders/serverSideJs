@@ -4,21 +4,22 @@ import {
   getStudentById, 
   createStudent, 
   updateStudent, 
-  deleteStudent 
+  deleteStudent, 
+  loginStudent
 } from "../services/studentsServices.js"
-import student from "../models/student.js";
+import student from "../models/students.js";
 
 export const getStudents = async (req, res) => {
   try {
-    const students = await getALLStudents();
+    const students = await getAllStudents();
     const toStudentDTO = (student) => ({
       id: student._id,
       email: student.email,
       major: student.major,
       gpa: student.gpa,
     });
-    const studentDTO = map(toStudentDTO);
-    res.status(200).json(students);
+    const studentDTO = students.map(toStudentDTO);
+    res.status(200).json(studentDTO);
   } catch (error) {
     res.status(404).json({message: error.message})
   }

@@ -1,5 +1,12 @@
 import express from "express"
-import { createStudentController, deleteStudentController, getStudentByIdController, getStudents, updateStudentController } from "../controllers/studentsControllers.js"
+import {
+    createStudentController,
+    deleteStudentController, 
+    getStudentByIdController, 
+    getStudents, 
+    updateStudentController,
+    loginStudentController
+} from "../controllers/studentsControllers.js"
 
 const router = express.Router()
 
@@ -18,5 +25,7 @@ router.put('/students/:id', updateStudentController)
 
 // DELETE — remove a student by ID
 router.delete('/students/:id', deleteStudentController)
+
+router.post('/students/login', loginStudentController)
 
 export default router
