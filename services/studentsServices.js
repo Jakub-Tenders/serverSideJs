@@ -8,7 +8,7 @@ export const getAllStudents = async () => {
 };
 
 export const getStudentById = (id) => {
-  Student.findById(id)
+  return Student.findById(id)
 };
 
 export const createStudent = async (newStudent) => {
@@ -34,5 +34,5 @@ export const updateStudent = async (id, updatedStudent) => {
 };
 
 export const deleteStudent =  (id) => {
-  Student.findByIdAndDelete(id)
+  return Student.findByIdAndDelete(id)
 };

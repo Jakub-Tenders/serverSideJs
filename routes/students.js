@@ -7,6 +7,8 @@ import {
     updateStudentController,
     loginStudentController
 } from "../controllers/studentsControllers.js"
+import { validate } from "../middleware/authStudent.js"
+import { authCheck } from "../middleware/auth-middleware.js"
 
 const router = express.Router()
 
@@ -18,13 +20,13 @@ router.get('/students', getStudents)
 router.get('/students/:id', getStudentByIdController)
 
 // POST — create a new student
-router.post('/students', createStudentController)
+router.post('/students', validate, createStudentController)
 
 // PUT — update a student by ID
-router.put('/students/:id', updateStudentController)
+router.put('/students/:id', authCheck, updateStudentController)
 
 // DELETE — remove a student by ID
-router.delete('/students/:id', deleteStudentController)
+router.delete('/students/:id', authCheck, deleteStudentController)
 
 router.post('/students/login', loginStudentController)
 
