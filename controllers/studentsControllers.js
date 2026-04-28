@@ -14,6 +14,7 @@ export const getStudents = async (req, res) => {
     const students = await getAllStudents();
     const toStudentDTO = (student) => ({
       id: student._id,
+      name: student.name,
       email: student.email,
       major: student.major,
       gpa: student.gpa,

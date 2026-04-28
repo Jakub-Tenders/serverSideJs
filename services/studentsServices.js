@@ -12,11 +12,7 @@ export const getStudentById = (id) => {
 };
 
 export const createStudent = async (newStudent) => {
-  if (!newStudent.name) throw new Error("name needed")
-  if (!newStudent.email) throw new Error("email needed")
-  if (!newStudent.password) throw new Error("password needed")
-  if (!newStudent.gpa) throw new Error("gpa needed")
-  if (!newStudent.major) throw new Error("major needed")
+  
 
   const hashedPassword = await bcrypt.hash(newStudent.password, SALT_ROUNDS)
   return  Student.create({ ...newStudent, password: hashedPassword })
