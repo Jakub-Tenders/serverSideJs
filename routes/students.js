@@ -14,10 +14,10 @@ const router = express.Router()
 
 
 // GET all students
-router.get('/students', getStudents)
+router.get('/students', authCheck, getStudents)
 
 // GET a single student by ID
-router.get('/students/:id', getStudentByIdController)
+router.get('/students/:id', authCheck, getStudentByIdController)
 
 // POST — create a new student
 router.post('/students', validate, createStudentController)
