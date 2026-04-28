@@ -59,7 +59,7 @@ export const createStudentController = async (req, res) => {
 
 export const updateStudentController = async (req, res) => {
   try {
-  const udated = await updateStudent(parseInt(req.params.id), req.body);
+  const udated = await updateStudent(req.params.id, req.body);
   res.status(200).json(udated);
   } catch (error) {
     res.status(500).json({ message: error.message});
