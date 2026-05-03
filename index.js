@@ -2,6 +2,7 @@ import dotenv from "dotenv"
 import express from "express" 
 import cors from "cors"
 import studentRoutes from "./routes/students.js"
+import bdeRoutes from "./routes/bdes.js"
 import mongoose from 'mongoose'
 
 dotenv.config()
@@ -25,6 +26,7 @@ res.json({ msg: "Hello World"})
 })
 
 app.use(studentRoutes)
+app.use(bdeRoutes)
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`)

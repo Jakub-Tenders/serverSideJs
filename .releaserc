@@ -5,7 +5,7 @@
         ["@semantic-release/commit-analyzer", {
             "preset": "angular",
             "releaseRules": [
-                {"breaking": true, "release": "major"},
+                {"breaker": true, "release": "major"},
                 {"type": "feat", "release": "minor"},
                 {"type": "fix", "release": "patch"}
             ]
