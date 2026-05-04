@@ -2,7 +2,7 @@
 node_modules
 /node_modules
 .env
-BACK/node_modules
-BACK/public/uploads/*
-!BACK/public/uploads/.gitkeep
-BACK/.env
+node_modules
+public/uploads/*
+!public/uploads/.gitkeep
+.env
