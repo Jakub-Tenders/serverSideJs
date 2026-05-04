@@ -17,3 +17,7 @@ const storage = multer.diskStorage({
     callback(null, name + Date.now() + "." + extension);
     },
 });
+
+const upload = multer({ storage });
+
+export default upload;
